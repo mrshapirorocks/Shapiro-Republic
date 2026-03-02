@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Shapiro Republic</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--bg:#08080d;--bg2:#0e0e16;--bg3:#16161f;--bg3h:#1e1e2a;
+--gold:#d4a853;--goldb:#f0c96e;--goldd:#8a6d2b;
+--gg:rgba(212,168,83,.15);--ggs:rgba(212,168,83,.25);
+--red:#c0392b;--rg:rgba(192,57,43,.2);
+--grn:#27ae60;--grnd:#1e8449;
+--parch:#e8dcc8;--parchd:#9a8e7a;
+--txt:#c8bea8;--txtd:#6e6658;
+--flash:#e67e22;--fg:rgba(230,126,34,.2);
+--purp:#9b59b6;--pg:rgba(155,89,182,.15);
+--blue:#3498db;--blg:rgba(52,152,219,.15);
+--bdr:rgba(212,168,83,.08);--bdrs:rgba(212,168,83,.22);
+--r:8px;--rl:14px;
+}
+html{font-size:16px}
+body{font-family:'Cormorant Garamond',Georgia,serif;background:var(--bg);color:var(--txt);min-height:100vh;overflow-x:hidden}
+
+/* HEADER */
+.hdr{position:sticky;top:0;z-index:100;background:rgba(8,8,13,.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--bdr);display:flex;align-items:stretch;height:50px}
+.hdr-home{display:flex;align-items:center;gap:.45rem;padding:0 1rem;border-right:1px solid var(--bdr);cursor:pointer;transition:background .2s;text-decoration:none}
+.hdr-home:hover{background:var(--gg)}
+.hdr-home .c{font-size:1.15rem}.hdr-home .b{font-family:'Cinzel Decorative',serif;font-size:.85rem;font-weight:700;color:var(--gold);letter-spacing:.03em}
+.hnav{display:flex;flex:1}
+.nb{font-family:'Cinzel',serif;font-size:.58rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;background:0;color:var(--txtd);border:none;border-bottom:2px solid transparent;padding:0 .9rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:.25rem}
+.nb:hover{color:var(--parch);background:rgba(255,255,255,.015)}
+.nb.on{color:var(--gold);border-bottom-color:var(--gold);background:var(--gg)}
+.nb .i{font-size:.75rem}.nb.hid{display:none}
+
+.vw{display:none;position:relative;z-index:1}.vw.on{display:block}
+.pw{padding:1.4rem;max-width:1200px;margin:0 auto}
+.sh{text-align:center;margin-bottom:1.6rem;padding-top:.4rem}
+.sh h1{font-family:'Cinzel Decorative',serif;font-size:1.7rem;font-weight:700;color:var(--gold);margin-bottom:.2rem;text-shadow:0 0 25px rgba(212,168,83,.1)}
+.sh p{font-size:.95rem;color:var(--parchd);font-style:italic}
+
+/* HOME */
+.hw{min-height:calc(100vh - 50px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;position:relative;overflow:hidden}
+.hw::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 20%,rgba(212,168,83,.05) 0%,transparent 50%),radial-gradient(ellipse at 70% 80%,rgba(212,168,83,.03) 0%,transparent 50%);pointer-events:none}
+.hw::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23d4a853' fill-opacity='.018'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none;opacity:.6}
+.hc{position:relative;z-index:1;text-align:center;max-width:780px;width:100%}
+.h-crest{font-size:3.2rem;margin-bottom:.7rem;animation:fl 4s ease-in-out infinite}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.h-title{font-family:'Cinzel Decorative',serif;font-size:clamp(1.8rem,5vw,3rem);font-weight:900;color:var(--gold);letter-spacing:.04em;line-height:1.1;margin-bottom:.35rem;text-shadow:0 0 35px rgba(212,168,83,.12)}
+.h-tag{font-size:1.05rem;color:var(--parchd);font-style:italic;margin-bottom:2.2rem}
+.h-div{width:100px;height:1px;background:linear-gradient(90deg,transparent,var(--goldd),transparent);margin:0 auto 2.2rem}
+.h-doors{display:flex;gap:1.3rem;justify-content:center;width:100%;max-width:700px;margin:0 auto}
+.h-door{position:relative;background:var(--bg3);border:1px solid var(--bdrs);border-radius:var(--rl);padding:2rem 1.3rem 1.6rem;cursor:pointer;transition:all .35s;overflow:hidden;display:flex;flex-direction:column;align-items:center;text-align:center;flex:1;max-width:210px}
+.h-door::before{content:'';position:absolute;inset:0;border-radius:var(--rl);opacity:0;transition:opacity .35s}
+.h-door.market::before{background:radial-gradient(ellipse at 50% 30%,rgba(212,168,83,.1) 0%,transparent 70%)}
+.h-door.games::before{background:radial-gradient(ellipse at 50% 30%,rgba(192,57,43,.07) 0%,transparent 70%)}
+.h-door.playlist::before{background:radial-gradient(ellipse at 50% 30%,rgba(155,89,182,.08) 0%,transparent 70%)}
+.h-door:hover{transform:translateY(-4px);border-color:var(--goldd);box-shadow:0 12px 36px rgba(0,0,0,.4),0 0 18px var(--gg)}
+.h-door:hover::before{opacity:1}
+.d-ico{font-size:2.8rem;margin-bottom:.75rem;position:relative;z-index:1;transition:transform .35s}
+.h-door:hover .d-ico{transform:scale(1.1)}
+.d-title{font-family:'Cinzel Decorative',serif;font-size:1rem;font-weight:700;color:var(--parch);margin-bottom:.3rem;position:relative;z-index:1}
+.d-desc{font-size:.78rem;color:var(--txtd);line-height:1.35;position:relative;z-index:1}
+.h-foot{margin-top:2.5rem;font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--txtd);opacity:.4}
+
+/* SHARED UI */
+.fbar{display:flex;gap:.35rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.4rem}
+.fb{font-family:'Cinzel',serif;font-size:.58rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:.25rem .75rem;border-radius:20px;border:1px solid var(--bdr);background:0;color:var(--txtd);cursor:pointer;transition:all .2s}
+.fb:hover,.fb.on{color:var(--gold);border-color:var(--goldd);background:var(--gg)}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:1rem}
+.btn{font-family:'Cinzel',serif;font-size:.58rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.38rem .8rem;border-radius:var(--r);border:1px solid var(--bdrs);background:var(--bg3);color:var(--parch);cursor:pointer;transition:all .2s}
+.btn:hover{background:var(--gg);border-color:var(--goldd);color:var(--gold)}
+.btn.pri{background:linear-gradient(135deg,var(--goldd),var(--gold));color:var(--bg);border-color:var(--gold)}.btn.pri:hover{box-shadow:0 0 14px rgba(212,168,83,.3)}
+.btn.dan{border-color:rgba(192,57,43,.3);color:var(--red)}.btn.dan:hover{background:var(--rg)}
+.btn.purp{border-color:rgba(155,89,182,.3);color:var(--purp)}.btn.purp:hover{background:var(--pg)}
+
+@keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fp{0%,100%{box-shadow:0 0 5px rgba(230,126,34,.3)}50%{box-shadow:0 0 12px rgba(230,126,34,.6)}}
+@keyframes sp{0%{transform:scale(1)}50%{transform:scale(.94);background:var(--rg)}100%{transform:scale(1)}}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--goldd);border-radius:3px}
+
+/* STORE CARDS */
+.ic{background:var(--bg3);border:1px solid var(--bdr);border-radius:var(--rl);overflow:hidden;position:relative;transition:all .3s;animation:fu .4s ease both}
+.ic:hover{border-color:var(--bdrs);background:var(--bg3h);transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.3)}
+.ic.so{opacity:.35;pointer-events:none}.ic.so .i-ico{filter:grayscale(1)}
+.so-tag{position:absolute;top:7px;right:7px;font-family:'Cinzel',serif;font-size:.43rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--red);background:rgba(192,57,43,.1);border:1px solid rgba(192,57,43,.2);padding:.08rem .38rem;border-radius:3px}
+.fl-badge{position:absolute;top:7px;left:7px;font-family:'Cinzel',serif;font-size:.43rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:linear-gradient(135deg,var(--flash),#d35400);padding:.1rem .45rem;border-radius:3px;animation:fp 2s ease-in-out infinite}
+.i-ico{font-size:2.3rem;text-align:center;padding:.85rem 0 .3rem;line-height:1}
+.i-inf{padding:0 .75rem .75rem;text-align:center}
+.i-nm{font-family:'Cinzel',serif;font-size:.75rem;font-weight:700;color:var(--parch);margin-bottom:.12rem}
+.i-cat{font-size:.58rem;color:var(--txtd);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.3rem}
+.i-pr{font-family:'Cinzel',serif;font-size:.9rem;font-weight:700;color:var(--gold)}
+.i-pr.os .orig{text-decoration:line-through;color:var(--txtd);font-size:.65rem;font-weight:400;margin-right:.2rem}.i-pr.os .sale{color:var(--flash)}
+.i-stk{font-size:.62rem;color:var(--txtd);margin-top:.12rem}.i-stk.low{color:var(--red);font-weight:600}
+
+/* GAMES */
+.ggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1rem}
+.gc{background:var(--bg3);border:1px solid var(--bdr);border-radius:var(--rl);overflow:hidden;transition:all .3s;animation:fu .45s ease both}
+.gc:hover{border-color:var(--bdrs);transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,.35)}
+.gb{height:115px;display:flex;align-items:center;justify-content:center;font-size:2.8rem;position:relative;overflow:hidden}
+.gb.feudal{background:linear-gradient(135deg,#1a0a00,#3d1a08,#1a0a00)}.gb.explorer{background:linear-gradient(135deg,#001a2d,#0a1f3d,#001a2d)}.gb.artifact{background:linear-gradient(135deg,#1a1a00,#3d3008,#1a1a00)}.gb.survival{background:linear-gradient(135deg,#0a1a0a,#0d3515,#0a1a0a)}
+.gb::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 30%,rgba(0,0,0,.5) 100%)}
+.gc-b{padding:.85rem 1rem}
+.gc-t{font-family:'Cinzel Decorative',serif;font-size:.95rem;font-weight:700;color:var(--parch);margin-bottom:.2rem}
+.gc-d{font-size:.8rem;color:var(--txtd);margin-bottom:.65rem;line-height:1.35}
+.gc-f{display:flex;align-items:center;justify-content:space-between}
+.gtag{font-family:'Cinzel',serif;font-size:.48rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.12rem .45rem;border-radius:4px;border:1px solid var(--bdr);color:var(--txtd)}
+.gpb{font-family:'Cinzel',serif;font-size:.62rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.38rem 1rem;border-radius:var(--r);border:1px solid var(--goldd);background:linear-gradient(135deg,var(--goldd),var(--gold));color:var(--bg);cursor:pointer;transition:all .2s}
+.gpb:hover{box-shadow:0 0 14px rgba(212,168,83,.3)}.gpb.cs{background:var(--bg3);color:var(--txtd);border-color:var(--bdr);cursor:default}
+
+/* LEADERBOARD */
+.lt{display:flex;gap:.25rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.4rem}
+.ltb{font-family:'Cinzel',serif;font-size:.58rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.32rem .85rem;border-radius:20px;border:1px solid var(--bdr);background:0;color:var(--txtd);cursor:pointer;transition:all .2s}
+.ltb:hover,.ltb.on{color:var(--gold);border-color:var(--goldd);background:var(--gg)}
+.lbt{width:100%;max-width:620px;margin:0 auto;border-collapse:separate;border-spacing:0 .32rem}
+.lbt th{font-family:'Cinzel',serif;font-size:.52rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--txtd);padding:.3rem .6rem;text-align:left}
+.lbt td{padding:.5rem .6rem;background:var(--bg3);font-size:.85rem}
+.lbt tr td:first-child{border-radius:var(--r) 0 0 var(--r)}.lbt tr td:last-child{border-radius:0 var(--r) var(--r) 0;text-align:right}
+.lr{font-family:'Cinzel Decorative',serif;font-weight:700;font-size:.9rem;width:2rem;text-align:center}
+.lr.g{color:var(--gold)}.lr.s{color:#aaa}.lr.br{color:#cd7f32}
+.ln{font-family:'Cinzel',serif;font-weight:600;color:var(--parch)}.ls{font-family:'Cinzel',serif;font-weight:700;color:var(--gold)}
+.le{text-align:center;color:var(--txtd);font-style:italic;padding:2.5rem 0}
+
+/* PLAYLIST */
+.pl-controls{display:flex;gap:.35rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.4rem}
+.pl-tab{font-family:'Cinzel',serif;font-size:.6rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.35rem 1rem;border-radius:20px;border:1px solid var(--bdr);background:0;color:var(--txtd);cursor:pointer;transition:all .2s}
+.pl-tab:hover,.pl-tab.on{color:var(--purp);border-color:var(--purp);background:var(--pg)}
+.song-list{max-width:700px;margin:0 auto;display:flex;flex-direction:column;gap:.5rem}
+.song-card{background:var(--bg3);border:1px solid var(--bdr);border-radius:var(--rl);padding:.65rem .85rem;display:flex;align-items:center;gap:.7rem;transition:all .25s;animation:fu .35s ease both}
+.song-card:hover{border-color:var(--bdrs);background:var(--bg3h)}
+.song-card.playing{border-color:rgba(155,89,182,.4);box-shadow:0 0 12px var(--pg)}
+.song-num{font-family:'Cinzel Decorative',serif;font-size:.8rem;font-weight:700;color:var(--txtd);min-width:1.4rem;text-align:center}
+.song-play{width:34px;height:34px;border-radius:50%;border:1px solid var(--bdrs);background:var(--bg2);color:var(--parch);font-size:.85rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+.song-play:hover{background:var(--pg);border-color:var(--purp);color:var(--purp)}
+.song-play.active{background:var(--purp);border-color:var(--purp);color:#fff;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(155,89,182,.3)}50%{box-shadow:0 0 0 6px rgba(155,89,182,0)}}
+.song-info{flex:1;min-width:0}
+.song-title{font-family:'Cinzel',serif;font-size:.78rem;font-weight:700;color:var(--parch);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.song-meta{font-size:.6rem;color:var(--txtd)}
+.song-votes{display:flex;align-items:center;gap:.1rem}
+.vote-btn{width:26px;height:26px;border-radius:50%;border:1px solid var(--bdr);background:0;color:var(--txtd);font-size:.65rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.vote-btn:hover{border-color:var(--bdrs);color:var(--parch)}
+.vote-btn.up:hover,.vote-btn.up.voted{color:var(--grn);border-color:var(--grn)}
+.vote-btn.dn:hover,.vote-btn.dn.voted{color:var(--red);border-color:var(--red)}
+.vote-count{font-family:'Cinzel',serif;font-size:.75rem;font-weight:700;min-width:1.8rem;text-align:center}
+.vote-count.pos{color:var(--grn)}.vote-count.neg{color:var(--red)}.vote-count.zero{color:var(--txtd)}
+.song-add{width:26px;height:26px;border-radius:50%;border:1px solid var(--bdr);background:0;color:var(--txtd);font-size:.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.song-add:hover{border-color:var(--purp);color:var(--purp);background:var(--pg)}
+.song-add.added{color:var(--purp);border-color:var(--purp)}
+.my-pl-header{display:flex;align-items:center;justify-content:space-between;max-width:700px;margin:0 auto 1rem}
+.my-pl-header h3{font-family:'Cinzel Decorative',serif;font-size:1rem;color:var(--purp)}
+.my-pl-empty{text-align:center;color:var(--txtd);font-style:italic;padding:2rem 0;max-width:700px;margin:0 auto}
+
+.now-playing-bar{position:fixed;bottom:0;left:0;right:0;z-index:150;background:rgba(14,14,22,.97);backdrop-filter:blur(12px);border-top:1px solid var(--bdrs);padding:.45rem 1.1rem;display:none;align-items:center;gap:.7rem}
+.now-playing-bar.show{display:flex}
+.np-btn{width:32px;height:32px;border-radius:50%;border:1px solid var(--purp);background:var(--purp);color:#fff;font-size:.85rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+.np-btn:hover{box-shadow:0 0 10px rgba(155,89,182,.3)}
+.np-info{flex:1;min-width:0}
+.np-title{font-family:'Cinzel',serif;font-size:.7rem;font-weight:700;color:var(--parch);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.np-artist{font-size:.55rem;color:var(--txtd)}
+.np-progress{height:3px;background:rgba(155,89,182,.2);border-radius:2px;overflow:hidden;margin-top:.2rem}
+.np-fill{height:100%;background:var(--purp);border-radius:2px;width:0%;transition:width .3s}
+.np-close{background:0;border:0;color:var(--txtd);cursor:pointer;font-size:.75rem;padding:.3rem}.np-close:hover{color:var(--parch)}
+
+/* ADMIN */
+.al{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:55vh;gap:1rem}
+.al h2{font-family:'Cinzel Decorative',serif;font-size:1.4rem;color:var(--gold)}
+.piw{display:flex;gap:.4rem}
+.pid{width:40px;height:48px;text-align:center;font-family:'Cinzel',serif;font-size:1.15rem;font-weight:700;color:var(--gold);background:var(--bg3);border:1px solid var(--bdrs);border-radius:var(--r);outline:none}
+.pid:focus{border-color:var(--gold);box-shadow:0 0 8px var(--gg)}
+.pier{color:var(--red);font-size:.75rem;font-style:italic;min-height:1em}
+
+/* Admin tabs */
+.adm-tabs{display:flex;gap:.3rem;margin-bottom:1.2rem;flex-wrap:wrap}
+.adm-tab{font-family:'Cinzel',serif;font-size:.6rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:.4rem 1rem;border-radius:20px;border:1px solid var(--bdr);background:0;color:var(--txtd);cursor:pointer;transition:all .2s}
+.adm-tab:hover{color:var(--parch);border-color:var(--bdrs)}
+.adm-tab.on{color:var(--gold);border-color:var(--goldd);background:var(--gg)}
+.adm-tab.on[data-at="lb"]{color:var(--blue);border-color:var(--blue);background:var(--blg)}
+.adm-tab.on[data-at="songs"]{color:var(--purp);border-color:var(--purp);background:var(--pg)}
+.adm-section{display:none}.adm-section.on{display:block}
+
+.atb{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem}
+.atb h2{font-family:'Cinzel Decorative',serif;font-size:1.05rem;color:var(--gold)}
+.atb h2.purp-h{color:var(--purp)}.atb h2.blue-h{color:var(--blue)}
+.aa{display:flex;gap:.3rem;flex-wrap:wrap}
+
+.sb{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:.45rem;margin-bottom:1.1rem}
+.st{background:var(--bg3);border:1px solid var(--bdr);border-radius:var(--r);padding:.5rem;text-align:center}
+.st .v{font-family:'Cinzel Decorative',serif;font-size:1.2rem;font-weight:700;color:var(--gold)}.st .l{font-size:.5rem;color:var(--txtd);text-transform:uppercase;letter-spacing:.08em;font-family:'Cinzel',serif}
+
+.ag{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:.75rem}
+.ac{background:var(--bg3);border:1px solid var(--bdr);border-radius:var(--rl);padding:.8rem;transition:all .2s;animation:fu .35s ease both}
+.ac:hover{border-color:var(--bdrs)}.ac.ifl{border-color:rgba(230,126,34,.3);box-shadow:0 0 8px var(--fg)}.ac.iso{opacity:.45}
+.act{display:flex;align-items:center;gap:.55rem;margin-bottom:.5rem}
+.aci{font-size:1.6rem;line-height:1;flex-shrink:0}
+.acm{flex:1;min-width:0}
+.acn{font-family:'Cinzel',serif;font-size:.78rem;font-weight:700;color:var(--parch);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.acd{font-size:.6rem;color:var(--txtd)}
+.acp{font-family:'Cinzel',serif;font-weight:700;color:var(--gold);font-size:.8rem;white-space:nowrap}
+.sc{display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.2);border-radius:var(--r);padding:.38rem .55rem;margin-bottom:.4rem}
+.scl{font-size:.6rem;color:var(--txtd);text-transform:uppercase;letter-spacing:.06em;font-family:'Cinzel',serif}
+.sqw{display:flex;align-items:center;gap:.3rem}
+.sqb{width:26px;height:26px;border-radius:50%;border:1px solid var(--bdrs);background:var(--bg2);color:var(--parch);font-size:.9rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;font-family:system-ui;line-height:1}
+.sqb:hover{background:var(--gg);border-color:var(--goldd);color:var(--gold)}
+.sqb.sl{border-color:rgba(39,174,96,.4);color:var(--grn);width:46px;height:30px;border-radius:var(--r);font-family:'Cinzel',serif;font-size:.55rem;font-weight:700;letter-spacing:.04em}
+.sqb.sl:hover{background:rgba(39,174,96,.12);transform:scale(1.03)}.sqb.sl:disabled{opacity:.25;cursor:default;transform:none}
+.sq{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:700;color:var(--parch);min-width:2ch;text-align:center}.sq.z{color:var(--red)}
+.aca{display:flex;gap:.3rem}.aca .btn{flex:1;font-size:.48rem;padding:.28rem .3rem;text-align:center}
+.fal{font-size:.52rem;color:var(--flash);font-weight:700;font-family:'Cinzel',serif;text-transform:uppercase;letter-spacing:.06em;text-align:center;margin-bottom:.3rem}
+
+/* Admin LB rows */
+.alb-game{margin-bottom:1.2rem}
+.alb-game-title{font-family:'Cinzel',serif;font-size:.8rem;font-weight:700;color:var(--blue);margin-bottom:.5rem;letter-spacing:.04em}
+.alb-row{display:flex;align-items:center;gap:.5rem;background:var(--bg3);border:1px solid var(--bdr);border-radius:var(--r);padding:.4rem .6rem;margin-bottom:.3rem;animation:fu .3s ease both}
+.alb-row:hover{border-color:var(--bdrs)}
+.alb-rank{font-family:'Cinzel Decorative',serif;font-size:.8rem;font-weight:700;color:var(--txtd);min-width:1.5rem;text-align:center}
+.alb-name{flex:1;font-family:'Cinzel',serif;font-size:.8rem;font-weight:600;color:var(--parch)}
+.alb-score{font-family:'Cinzel',serif;font-size:.8rem;font-weight:700;color:var(--gold);min-width:4rem;text-align:right}
+.alb-name input,.alb-score input{font-family:'Cinzel',serif;font-size:.8rem;background:var(--bg);border:1px solid var(--bdrs);border-radius:4px;color:var(--parch);padding:.15rem .3rem;width:100%;outline:none}
+.alb-score input{text-align:right;width:5rem}
+.alb-actions{display:flex;gap:.2rem}
+.alb-btn{width:24px;height:24px;border-radius:50%;border:1px solid var(--bdr);background:0;color:var(--txtd);font-size:.6rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.alb-btn:hover{border-color:var(--bdrs);color:var(--parch)}
+.alb-btn.del:hover{color:var(--red);border-color:var(--red)}
+.alb-btn.sav:hover{color:var(--grn);border-color:var(--grn)}
+
+/* Admin song rows */
+.asong-row{display:flex;align-items:center;gap:.6rem;background:var(--bg3);border:1px solid var(--bdr);border-radius:var(--r);padding:.5rem .7rem;margin-bottom:.35rem;animation:fu .3s ease both}
+.asong-row:hover{border-color:var(--bdrs)}
+.asong-num{font-family:'Cinzel Decorative',serif;font-size:.75rem;font-weight:700;color:var(--txtd);min-width:1.3rem;text-align:center}
+.asong-info{flex:1;min-width:0}
+.asong-title{font-family:'Cinzel',serif;font-size:.78rem;font-weight:700;color:var(--parch)}
+.asong-meta{font-size:.6rem;color:var(--txtd)}
+.asong-votes{font-family:'Cinzel',serif;font-size:.75rem;font-weight:700;min-width:2.5rem;text-align:center}
+.asong-votes.pos{color:var(--grn)}.asong-votes.neg{color:var(--red)}.asong-votes.zero{color:var(--txtd)}
+.asong-actions{display:flex;gap:.25rem}
+
+/* MODALS */
+.mo{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(5px);z-index:200;align-items:center;justify-content:center}
+.mo.op{display:flex}
+.md{background:var(--bg2);border:1px solid var(--bdrs);border-radius:var(--rl);padding:1.2rem;width:90%;max-width:370px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.md h3{font-family:'Cinzel Decorative',serif;font-size:.9rem;color:var(--gold);margin-bottom:.75rem}
+.md h3.purp{color:var(--purp)}
+.md label{display:block;font-family:'Cinzel',serif;font-size:.6rem;font-weight:600;color:var(--parchd);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.18rem}
+.md input,.md select{width:100%;font-family:'Cormorant Garamond',serif;font-size:.85rem;color:var(--parch);background:var(--bg3);border:1px solid var(--bdrs);border-radius:var(--r);padding:.38rem .6rem;margin-bottom:.6rem;outline:none}
+.md input:focus,.md select:focus{border-color:var(--gold)}
+.mda{display:flex;gap:.4rem;justify-content:flex-end;margin-top:.25rem}
+
+@media(max-width:600px){
+.hdr-home .b{font-size:.7rem}.nb{padding:0 .55rem;font-size:.5rem}.nb .i{display:none}
+.h-doors{flex-direction:column;align-items:center;max-width:260px}.h-door{max-width:100%}.h-crest{font-size:2.3rem}
+.cgrid{grid-template-columns:repeat(auto-fill,minmax(145px,1fr))}.ag{grid-template-columns:1fr}.ggrid{grid-template-columns:1fr}.sh h1{font-size:1.2rem}
+.now-playing-bar{padding:.35rem .7rem}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <a class="hdr-home" onclick="goHome()"><div class="c">⚔️</div><div class="b">The Shapiro Republic</div></a>
+  <nav class="hnav" id="mainNav">
+    <button class="nb hid" data-view="store"><span class="i">🏪</span>Market</button>
+    <button class="nb hid" data-view="games"><span class="i">🎮</span>Games</button>
+    <button class="nb hid" data-view="playlist"><span class="i">🎵</span>Playlist</button>
+    <button class="nb hid" data-view="leaderboard"><span class="i">🏆</span>Champions</button>
+    <button class="nb hid" data-view="admin"><span class="i">🔧</span>Admin</button>
+  </nav>
+</header>
+
+<!-- HOME -->
+<div id="homeView" class="vw on"><div class="hw"><div class="hc">
+  <div class="h-crest">⚔️</div>
+  <h1 class="h-title">The Shapiro Republic</h1>
+  <p class="h-tag">Welcome, Time Traveler. Choose your path.</p>
+  <div class="h-div"></div>
+  <div class="h-doors">
+    <div class="h-door market" onclick="enterSection('store')"><div class="d-ico">🏪</div><div class="d-title">The Market</div><div class="d-desc">Browse goods &amp; spend your coins</div></div>
+    <div class="h-door games" onclick="enterSection('games')"><div class="d-ico">🎮</div><div class="d-title">Game Hub</div><div class="d-desc">Earn coins through combat &amp; trivia</div></div>
+    <div class="h-door playlist" onclick="enterSection('playlist')"><div class="d-ico">🎵</div><div class="d-title">The Playlist</div><div class="d-desc">Listen, vote &amp; build your mix</div></div>
+  </div>
+  <div class="h-foot">Time Machine Headquarters — Est. MMXXV</div>
+</div></div></div>
+
+<!-- STORE -->
+<div id="storeView" class="vw"><div class="pw">
+  <div class="sh"><h1>🏪 The Market</h1><p>Spend your coins wisely, time traveler</p></div>
+  <div class="fbar" id="filterBar"></div><div class="cgrid" id="storeGrid"></div>
+</div></div>
+
+<!-- GAMES -->
+<div id="gamesView" class="vw"><div class="pw">
+  <div class="sh"><h1>🎮 Game Hub</h1><p>Earn coins and glory through combat &amp; exploration</p></div>
+  <div class="ggrid" id="gamesGrid"></div>
+</div></div>
+
+<!-- PLAYLIST -->
+<div id="playlistView" class="vw"><div class="pw">
+  <div class="sh"><h1>🎵 The Playlist</h1><p>Mr. Shapiro's tracks — vote, listen &amp; build your mix</p></div>
+  <div class="pl-controls" id="plTabs"></div><div id="plContent"></div>
+</div></div>
+
+<!-- LEADERBOARD -->
+<div id="leaderboardView" class="vw"><div class="pw">
+  <div class="sh"><h1>🏆 Hall of Champions</h1><p>The greatest time travelers in the Republic</p></div>
+  <div class="lt" id="lbTabs"></div><div id="lbContent"></div>
+</div></div>
+
+<!-- ADMIN -->
+<div id="adminView" class="vw"><div class="pw">
+  <div class="al" id="adminLock"><h2>🔐 Admin Access</h2><div class="piw" id="pinWrap"></div><div class="pier" id="pinError"></div></div>
+  <div id="adminPanel" style="display:none">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem;flex-wrap:wrap;gap:.5rem">
+      <div class="adm-tabs" id="admTabs">
+        <button class="adm-tab on" data-at="market" onclick="setAdmTab('market')">📦 Market</button>
+        <button class="adm-tab" data-at="lb" onclick="setAdmTab('lb')">🏆 Leaderboards</button>
+        <button class="adm-tab" data-at="songs" onclick="setAdmTab('songs')">🎵 Songs</button>
+      </div>
+      <button class="btn dan" onclick="lockAdmin()">🔒 Lock</button>
+    </div>
+
+    <!-- MARKET ADMIN -->
+    <div class="adm-section on" id="admMarket">
+      <div class="sb" id="statsBar"></div>
+      <div class="atb"><h2>📦 Inventory</h2><div class="aa"><button class="btn pri" onclick="openModal('add')">+ Add Item</button><button class="btn" onclick="resetPurchases()">Reset Sales</button></div></div>
+      <div class="ag" id="adminGrid"></div>
+    </div>
+
+    <!-- LEADERBOARD ADMIN -->
+    <div class="adm-section" id="admLb">
+      <div class="atb"><h2 class="blue-h">🏆 Leaderboard Manager</h2><div class="aa"><button class="btn" onclick="resetAllVotes()" style="border-color:rgba(52,152,219,.3);color:var(--blue)">Reset All Votes</button></div></div>
+      <div id="admLbContent"></div>
+    </div>
+
+    <!-- SONGS ADMIN -->
+    <div class="adm-section" id="admSongs">
+      <div class="atb"><h2 class="purp-h">🎵 Song Manager</h2><div class="aa"><button class="btn purp" onclick="openSongModal('add')">+ Add Song</button><button class="btn" onclick="resetSongVotes()">Reset Votes</button></div></div>
+      <div id="admSongsContent"></div>
+    </div>
+  </div>
+</div></div>
+
+<!-- ITEM MODAL -->
+<div class="mo" id="modalOverlay" onclick="closeModal(event)"><div class="md" onclick="event.stopPropagation()">
+  <h3 id="modalTitle">Add Item</h3>
+  <label>Item Name</label><input id="mName" type="text" placeholder="e.g. Fidget Spinner">
+  <label>Icon (Emoji)</label><input id="mIcon" type="text" placeholder="e.g. 🌀" maxlength="4">
+  <label>Category</label><select id="mCategory"><option value="Fidgets">Fidgets</option><option value="Toys">Toys</option><option value="Funko Pop">Funko Pop</option><option value="Other">Other</option></select>
+  <label>Price (coins)</label><input id="mPrice" type="number" min="1" placeholder="50">
+  <label>Stock Quantity</label><input id="mStock" type="number" min="0" placeholder="10">
+  <div class="mda"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn pri" id="modalSave" onclick="saveItem()">Add Item</button></div>
+</div></div>
+
+<!-- FLASH MODAL -->
+<div class="mo" id="flashModal" onclick="closeFlashModal(event)"><div class="md" onclick="event.stopPropagation()">
+  <h3>⚡ Flash Sale</h3>
+  <p style="color:var(--txtd);font-size:.8rem;margin-bottom:.7rem" id="flashItemLabel"></p>
+  <label>Sale Price (coins)</label><input id="flashPrice" type="number" min="1" placeholder="e.g. 25">
+  <div class="mda"><button class="btn" onclick="closeFlashModal()">Cancel</button><button class="btn pri" onclick="activateFlashSale()">Start Sale</button></div>
+</div></div>
+
+<!-- SONG MODAL -->
+<div class="mo" id="songModal" onclick="closeSongModal(event)"><div class="md" onclick="event.stopPropagation()">
+  <h3 class="purp" id="songModalTitle">Add Song</h3>
+  <label>Song Title</label><input id="sTitle" type="text" placeholder="e.g. Medieval Monday">
+  <label>Genre</label><input id="sGenre" type="text" placeholder="e.g. Rock, Lo-Fi, Epic">
+  <label>Duration</label><input id="sDuration" type="text" placeholder="e.g. 3:24">
+  <div class="mda"><button class="btn" onclick="closeSongModal()">Cancel</button><button class="btn purp" id="songModalSave" onclick="saveSong()">Add Song</button></div>
+</div></div>
+
+<!-- NOW PLAYING -->
+<div class="now-playing-bar" id="npBar">
+  <button class="np-btn" id="npPlayBtn" onclick="toggleNP()">▶</button>
+  <div class="np-info"><div class="np-title" id="npTitle">—</div><div class="np-artist" id="npArtist">—</div><div class="np-progress"><div class="np-fill" id="npFill"></div></div></div>
+  <button class="np-close" onclick="closeNP()">✕</button>
+</div>
+
+<script>
+const SK='shapiro_republic_v5',DP='123456';
+const defItems=[
+{id:1,name:'Spiky Fidget Ball',icon:'🦔',category:'Fidgets',price:150,stock:6,sold:0,flash:null},
+{id:2,name:'Ono Roller',icon:'🌀',category:'Fidgets',price:200,stock:4,sold:0,flash:null},
+{id:3,name:'Fidget Cube',icon:'🎲',category:'Fidgets',price:175,stock:5,sold:0,flash:null},
+{id:4,name:'Pop-It Keychain',icon:'🔘',category:'Fidgets',price:100,stock:8,sold:0,flash:null},
+{id:5,name:'Slinky',icon:'🌈',category:'Toys',price:120,stock:5,sold:0,flash:null},
+{id:6,name:'Rubiks Cube',icon:'🧩',category:'Toys',price:250,stock:3,sold:0,flash:null},
+{id:7,name:'Yo-Yo',icon:'🪀',category:'Toys',price:100,stock:6,sold:0,flash:null},
+{id:8,name:'Darth Vader',icon:'⬛',category:'Funko Pop',price:500,stock:1,sold:0,flash:null},
+{id:9,name:'Baby Yoda',icon:'💚',category:'Funko Pop',price:500,stock:1,sold:0,flash:null},
+{id:10,name:'Spider-Man',icon:'🕷️',category:'Funko Pop',price:450,stock:2,sold:0,flash:null},
+{id:11,name:'Candy Bar',icon:'🍫',category:'Other',price:60,stock:15,sold:0,flash:null},
+{id:12,name:'Homework Pass',icon:'📜',category:'Other',price:300,stock:3,sold:0,flash:null},
+];
+const defGames=[
+{id:'feudal',title:'Feudal Siege',desc:'Defend your castle against waves of medieval invaders.',banner:'feudal',icon:'🏰',tags:['Tower Defense','Strategy'],playable:true},
+{id:'explorer',title:'Time Explorer',desc:'Journey through ancient civilizations and answer questions.',banner:'explorer',icon:'🗺️',tags:['Adventure','Trivia'],playable:true},
+{id:'artifact',title:'Artifact Clicker',desc:'Click through history, unlocking artifacts and earning coins.',banner:'artifact',icon:'⚱️',tags:['Clicker','Idle'],playable:true},
+{id:'survival',title:'Time-Traveler Survival',desc:'Wake up in an unknown era. Use clues to survive.',banner:'survival',icon:'🌿',tags:['Survival','Mystery'],playable:false},
+];
+const defSongs=[
+{id:1,title:'March of the Republic',genre:'Epic',duration:'3:24',votes:12,myVote:0},
+{id:2,title:'Mesopotamia Groove',genre:'World',duration:'2:58',votes:8,myVote:0},
+{id:3,title:'Pyramid Sunset',genre:'Ambient',duration:'4:12',votes:15,myVote:0},
+{id:4,title:'Roman Roads',genre:'Rock',duration:'3:45',votes:6,myVote:0},
+{id:5,title:'Medieval Monday',genre:'Folk',duration:'3:02',votes:10,myVote:0},
+{id:6,title:'Renaissance Jam',genre:'Jazz',duration:'4:30',votes:4,myVote:0},
+{id:7,title:'Greek Fire',genre:'Electronic',duration:'3:18',votes:9,myVote:0},
+{id:8,title:'Dynasty Drift',genre:'Lo-Fi',duration:'2:44',votes:7,myVote:0},
+];
+const defLb={
+'Feudal Siege':[{name:'DragonSlayer42',score:12500},{name:'CastleKing',score:11200},{name:'ArcherQueen',score:9800},{name:'SiegeMaster',score:8400},{name:'KnightRider',score:7100}],
+'Time Explorer':[{name:'HistoryBuff',score:9200},{name:'TimeLord',score:8700},{name:'AncientOne',score:7500},{name:'Explorer99',score:6300},{name:'MapMaker',score:5100}],
+'Artifact Clicker':[{name:'ClickKing',score:45000},{name:'ArtifactHunter',score:38000},{name:'GoldDigger',score:29000},{name:'RelicSeeker',score:21000},{name:'TapMaster',score:15000}],
+};
+
+function load(){try{const s=localStorage.getItem(SK);if(s)return JSON.parse(s)}catch(e){}return{items:defItems,pin:DP,lb:defLb,songs:defSongs,myPl:[]}}
+function save(){localStorage.setItem(SK,JSON.stringify({items:SI,pin:AP,lb:LB,songs:SG,myPl:MP}))}
+
+let d=load(),SI=d.items,AP=d.pin,LB=d.lb||defLb,SG=d.songs||defSongs,MP=d.myPl||[];
+let AU=false,EI=null,FT=null,AF='All',ALT=Object.keys(LB)[0],PLT='all',NP=null,NPp=false,admTab='market',ESI=null;
+
+// NAV
+function showNav(){document.querySelectorAll('.nb').forEach(b=>b.classList.remove('hid'))}
+function hideNav(){document.querySelectorAll('.nb').forEach(b=>b.classList.add('hid'))}
+function goHome(){document.querySelectorAll('.vw').forEach(v=>v.classList.remove('on'));document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));document.getElementById('homeView').classList.add('on');hideNav()}
+function enterSection(v){showNav();switchTo(v)}
+function switchTo(v){document.querySelectorAll('.vw').forEach(x=>x.classList.remove('on'));document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));document.getElementById(v+'View').classList.add('on');document.querySelector(`.nb[data-view="${v}"]`)?.classList.add('on');
+if(v==='store')renderStore();if(v==='games')renderGames();if(v==='leaderboard')renderLb();if(v==='admin')renderAdmin();if(v==='playlist')renderPl()}
+document.getElementById('mainNav').addEventListener('click',e=>{const b=e.target.closest('.nb');if(!b)return;switchTo(b.dataset.view)});
+
+// STORE
+function getCats(){return['All',...new Set(SI.map(i=>i.category))]}
+function renderStore(){
+document.getElementById('filterBar').innerHTML=getCats().map(c=>`<button class="fb ${c===AF?'on':''}" onclick="setFilter('${c}')">${c}</button>`).join('');
+const f=AF==='All'?SI:SI.filter(i=>i.category===AF);
+document.getElementById('storeGrid').innerHTML=f.map((t,x)=>{const r=t.stock-t.sold,o=r<=0,l=r>0&&r<=2,fl=t.flash>0;
+return`<div class="ic ${o?'so':''}" style="animation-delay:${x*.04}s">${o?'<div class="so-tag">Sold Out</div>':''}${fl?'<div class="fl-badge">⚡ Sale</div>':''}<div class="i-ico">${t.icon}</div><div class="i-inf"><div class="i-nm">${t.name}</div><div class="i-cat">${t.category}</div><div class="i-pr ${fl?'os':''}">${fl?`<span class="orig">${t.price}</span><span class="sale">${t.flash} coins</span>`:`${t.price} coins`}</div><div class="i-stk ${l?'low':''}">${o?'':r+' remaining'}</div></div></div>`}).join('')}
+function setFilter(c){AF=c;renderStore()}
+
+// GAMES
+function renderGames(){document.getElementById('gamesGrid').innerHTML=defGames.map((g,i)=>`<div class="gc" style="animation-delay:${i*.08}s"><div class="gb ${g.banner}">${g.icon}</div><div class="gc-b"><div class="gc-t">${g.title}</div><div class="gc-d">${g.desc}</div><div class="gc-f"><div style="display:flex;gap:.2rem">${g.tags.map(t=>`<span class="gtag">${t}</span>`).join('')}</div><button class="gpb ${g.playable?'':'cs'}">${g.playable?'▶ Play':'Coming Soon'}</button></div></div></div>`).join('')}
+
+// PLAYLIST
+function renderPl(){
+document.getElementById('plTabs').innerHTML=['all','top','my'].map(t=>`<button class="pl-tab ${t===PLT?'on':''}" onclick="setPlTab('${t}')">${t==='all'?'All Tracks':t==='top'?'Top Rated':'My Playlist'}</button>`).join('');
+const el=document.getElementById('plContent');
+if(PLT==='my'){const songs=SG.filter(s=>MP.includes(s.id));if(!songs.length){el.innerHTML='<div class="my-pl-empty">Your playlist is empty — add tracks from All Tracks!</div>';return;}
+el.innerHTML=`<div class="my-pl-header"><h3>🎵 My Playlist (${songs.length})</h3><button class="btn" onclick="clearMyPl()">Clear All</button></div><div class="song-list">${songs.map((s,i)=>songCard(s,i+1,true)).join('')}</div>`;return}
+let songs=[...SG];if(PLT==='top')songs.sort((a,b)=>b.votes-a.votes);
+el.innerHTML=`<div class="song-list">${songs.map((s,i)=>songCard(s,i+1,false)).join('')}</div>`}
+function songCard(s,n,isMyPl){const inMy=MP.includes(s.id),isP=NP===s.id,vc=s.votes>0?'pos':s.votes<0?'neg':'zero';
+return`<div class="song-card ${isP?'playing':''}" style="animation-delay:${n*.03}s"><div class="song-num">${n}</div><button class="song-play ${isP&&NPp?'active':''}" onclick="playSong(${s.id})">${isP&&NPp?'⏸':'▶'}</button><div class="song-info"><div class="song-title">${s.title}</div><div class="song-meta">${s.genre} · ${s.duration}</div></div><div class="song-votes"><button class="vote-btn up ${s.myVote===1?'voted':''}" onclick="voteSong(${s.id},1)">▲</button><div class="vote-count ${vc}">${s.votes>0?'+':''}${s.votes}</div><button class="vote-btn dn ${s.myVote===-1?'voted':''}" onclick="voteSong(${s.id},-1)">▼</button></div>${isMyPl?`<button class="song-add added" onclick="toggleMyPl(${s.id})">✕</button>`:`<button class="song-add ${inMy?'added':''}" onclick="toggleMyPl(${s.id})">${inMy?'✓':'+'}</button>`}</div>`}
+function setPlTab(t){PLT=t;renderPl()}
+function voteSong(id,dir){const s=SG.find(x=>x.id===id);if(!s)return;if(s.myVote===dir){s.votes-=dir;s.myVote=0}else{s.votes-=s.myVote;s.votes+=dir;s.myVote=dir}save();renderPl()}
+function toggleMyPl(id){if(MP.includes(id))MP=MP.filter(x=>x!==id);else MP.push(id);save();renderPl()}
+function clearMyPl(){if(!confirm('Clear your playlist?'))return;MP=[];save();renderPl()}
+function playSong(id){const s=SG.find(x=>x.id===id);if(!s)return;if(NP===id){NPp=!NPp}else{NP=id;NPp=true}
+document.getElementById('npBar').classList.add('show');document.getElementById('npTitle').textContent=s.title;document.getElementById('npArtist').textContent=`Mr. Shapiro · ${s.genre}`;document.getElementById('npPlayBtn').textContent=NPp?'⏸':'▶';if(NPp)animProg();renderPl()}
+function toggleNP(){if(NP)playSong(NP)}
+function closeNP(){NP=null;NPp=false;document.getElementById('npBar').classList.remove('show');clearInterval(progInt);renderPl()}
+let progInt;function animProg(){clearInterval(progInt);let w=0;const f=document.getElementById('npFill');progInt=setInterval(()=>{if(!NPp){clearInterval(progInt);return}w+=.3;if(w>100)w=0;f.style.width=w+'%'},100)}
+
+// LEADERBOARD
+function renderLb(){const tabs=Object.keys(LB);
+document.getElementById('lbTabs').innerHTML=tabs.map(t=>`<button class="ltb ${t===ALT?'on':''}" onclick="setLbTab('${t}')">${t}</button>`).join('');
+const e=LB[ALT]||[];if(!e.length){document.getElementById('lbContent').innerHTML='<div class="le">No champions yet!</div>';return}
+const m=['g','s','br'];document.getElementById('lbContent').innerHTML=`<table class="lbt"><thead><tr><th>#</th><th>Champion</th><th>Score</th></tr></thead><tbody>${e.sort((a,b)=>b.score-a.score).map((x,i)=>`<tr><td><div class="lr ${m[i]||''}">${i<3?['👑','🥈','🥉'][i]:i+1}</div></td><td class="ln">${x.name}</td><td class="ls">${x.score.toLocaleString()}</td></tr>`).join('')}</tbody></table>`}
+function setLbTab(t){ALT=t;renderLb()}
+
+// ADMIN
+function renderAdmin(){if(!AU){document.getElementById('adminLock').style.display='flex';document.getElementById('adminPanel').style.display='none';createPin();return}
+document.getElementById('adminLock').style.display='none';document.getElementById('adminPanel').style.display='block';renderAdmTab()}
+function createPin(){const w=document.getElementById('pinWrap');w.innerHTML='';for(let i=0;i<6;i++){const inp=document.createElement('input');inp.type='password';inp.maxLength=1;inp.className='pid';inp.dataset.idx=i;
+inp.addEventListener('input',e=>{if(e.target.value&&+e.target.dataset.idx<5)w.children[+e.target.dataset.idx+1].focus();checkPin()});
+inp.addEventListener('keydown',e=>{if(e.key==='Backspace'&&!e.target.value&&+e.target.dataset.idx>0)w.children[+e.target.dataset.idx-1].focus()});w.appendChild(inp)}w.children[0].focus()}
+function checkPin(){const d=[...document.querySelectorAll('.pid')].map(d=>d.value).join('');if(d.length===6){if(d===AP){AU=true;document.getElementById('pinError').textContent='';renderAdmin()}else{document.getElementById('pinError').textContent='Incorrect PIN';document.querySelectorAll('.pid').forEach(d=>d.value='');document.querySelector('.pid').focus()}}}
+function lockAdmin(){AU=false;renderAdmin()}
+
+function setAdmTab(t){admTab=t;document.querySelectorAll('.adm-tab').forEach(b=>b.classList.remove('on'));document.querySelector(`.adm-tab[data-at="${t}"]`).classList.add('on');document.querySelectorAll('.adm-section').forEach(s=>s.classList.remove('on'));document.getElementById(t==='market'?'admMarket':t==='lb'?'admLb':'admSongs').classList.add('on');renderAdmTab()}
+function renderAdmTab(){if(admTab==='market'){renderStats();renderAG()}else if(admTab==='lb'){renderAdmLb()}else{renderAdmSongs()}}
+
+// MARKET ADMIN
+function renderStats(){const sold=SI.reduce((s,i)=>s+i.sold,0),rev=SI.reduce((s,i)=>s+(i.sold*(i.flash||i.price)),0);
+document.getElementById('statsBar').innerHTML=`<div class="st"><div class="v">${SI.length}</div><div class="l">Items</div></div><div class="st"><div class="v">${sold}</div><div class="l">Sold</div></div><div class="st"><div class="v">${rev.toLocaleString()}</div><div class="l">Coins</div></div><div class="st"><div class="v">${SI.filter(i=>(i.stock-i.sold)<=0).length}</div><div class="l">Sold Out</div></div><div class="st"><div class="v">${SI.filter(i=>i.flash>0).length}</div><div class="l">Sales</div></div>`}
+function renderAG(){document.getElementById('adminGrid').innerHTML=SI.map((t,x)=>{const r=t.stock-t.sold,o=r<=0,fl=t.flash>0;
+return`<div class="ac ${fl?'ifl':''} ${o?'iso':''}" id="ac-${t.id}" style="animation-delay:${x*.03}s"><div class="act"><div class="aci">${t.icon}</div><div class="acm"><div class="acn">${t.name}</div><div class="acd">${t.category}</div></div><div class="acp">${fl?`<span style="text-decoration:line-through;color:var(--txtd);font-size:.6rem">${t.price}</span> ${t.flash}`:t.price} ¢</div></div><div class="sc"><div class="scl">Stock</div><div class="sqw"><button class="sqb" onclick="adjS(${t.id},-1)">−</button><div class="sq ${r<=0?'z':''}">${r}</div><button class="sqb" onclick="adjS(${t.id},1)">+</button><button class="sqb sl" onclick="sell(${t.id})" ${o?'disabled':''}>SELL</button></div></div>${fl?`<div class="fal">⚡ Flash — ${t.flash} coins</div>`:''}<div class="aca">${fl?`<button class="btn dan" onclick="endFS(${t.id})">End Sale</button>`:`<button class="btn" onclick="openFM(${t.id})">⚡ Flash</button>`}<button class="btn" onclick="openModal('edit',${t.id})">Edit</button><button class="btn dan" onclick="delItem(${t.id})">✕</button></div></div>`}).join('')}
+
+function sell(id){const t=SI.find(i=>i.id===id);if(!t||(t.stock-t.sold)<=0)return;t.sold++;save();const c=document.getElementById('ac-'+id);if(c){c.style.animation='none';c.offsetHeight;c.style.animation='sp .3s ease'}renderStats();renderAG()}
+function adjS(id,d){const t=SI.find(i=>i.id===id);if(!t)return;t.stock=Math.max(t.sold,t.stock+d);save();renderStats();renderAG()}
+function resetPurchases(){if(!confirm('Reset all sold counts?'))return;SI.forEach(i=>i.sold=0);save();renderStats();renderAG()}
+function openFM(id){FT=id;const t=SI.find(i=>i.id===id);document.getElementById('flashItemLabel').textContent=`${t.icon} ${t.name} — ${t.price} coins`;document.getElementById('flashPrice').value=Math.round(t.price*.5);document.getElementById('flashModal').classList.add('op');document.getElementById('flashPrice').focus()}
+function closeFlashModal(e){if(e&&e.target!==e.currentTarget)return;document.getElementById('flashModal').classList.remove('op');FT=null}
+function activateFlashSale(){const p=parseInt(document.getElementById('flashPrice').value);if(!p||p<1)return;const t=SI.find(i=>i.id===FT);if(!t)return;t.flash=p;save();closeFlashModal();renderAdmTab();renderStore()}
+function endFS(id){const t=SI.find(i=>i.id===id);if(t)t.flash=null;save();renderAdmTab();renderStore()}
+function openModal(m,id){EI=m==='edit'?id:null;document.getElementById('modalTitle').textContent=m==='edit'?'Edit Item':'Add Item';document.getElementById('modalSave').textContent=m==='edit'?'Save':'Add Item';
+if(m==='edit'){const t=SI.find(i=>i.id===id);document.getElementById('mName').value=t.name;document.getElementById('mIcon').value=t.icon;document.getElementById('mCategory').value=t.category;document.getElementById('mPrice').value=t.price;document.getElementById('mStock').value=t.stock}
+else{['mName','mIcon','mPrice','mStock'].forEach(x=>document.getElementById(x).value='');document.getElementById('mCategory').value='Fidgets'}
+document.getElementById('modalOverlay').classList.add('op');document.getElementById('mName').focus()}
+function closeModal(e){if(e&&e.target!==e.currentTarget)return;document.getElementById('modalOverlay').classList.remove('op');EI=null}
+function saveItem(){const n=document.getElementById('mName').value.trim();if(!n)return;const ic=document.getElementById('mIcon').value.trim()||'📦',ca=document.getElementById('mCategory').value,pr=parseInt(document.getElementById('mPrice').value)||50,st=parseInt(document.getElementById('mStock').value)||1;
+if(EI!==null){Object.assign(SI.find(i=>i.id===EI),{name:n,icon:ic,category:ca,price:pr,stock:st})}
+else{SI.push({id:SI.reduce((m,i)=>Math.max(m,i.id),0)+1,name:n,icon:ic,category:ca,price:pr,stock:st,sold:0,flash:null})}
+save();closeModal();renderAdmTab();renderStore()}
+function delItem(id){const t=SI.find(i=>i.id===id);if(!confirm(`Delete "${t.name}"?`))return;SI=SI.filter(i=>i.id!==id);save();renderAdmTab();renderStore()}
+
+// LEADERBOARD ADMIN
+function renderAdmLb(){const el=document.getElementById('admLbContent');
+el.innerHTML=Object.entries(LB).map(([game,entries])=>{
+const sorted=[...entries].sort((a,b)=>b.score-a.score);
+return`<div class="alb-game"><div class="alb-game-title">${game} (${entries.length} entries)</div>${sorted.map((e,i)=>`<div class="alb-row" style="animation-delay:${i*.03}s" id="lb-${game.replace(/\s/g,'')}-${i}">
+<div class="alb-rank">${i+1}</div>
+<div class="alb-name" id="lbn-${game.replace(/\s/g,'')}-${i}">${e.name}</div>
+<div class="alb-score">${e.score.toLocaleString()}</div>
+<div class="alb-actions">
+<button class="alb-btn" onclick="editLbEntry('${game}',${i})" title="Edit">✎</button>
+<button class="alb-btn del" onclick="delLbEntry('${game}',${i})" title="Delete">✕</button>
+</div></div>`).join('')}
+</div>`}).join('')}
+
+function editLbEntry(game,idx){
+const entries=LB[game].sort((a,b)=>b.score-a.score);
+const e=entries[idx];
+const newName=prompt('Edit name:',e.name);if(newName===null)return;
+const newScore=prompt('Edit score:',e.score);if(newScore===null)return;
+e.name=newName.trim()||e.name;
+e.score=parseInt(newScore)||e.score;
+save();renderAdmLb();renderLb()}
+
+function delLbEntry(game,idx){
+const entries=LB[game].sort((a,b)=>b.score-a.score);
+if(!confirm(`Delete "${entries[idx].name}" from ${game}?`))return;
+LB[game]=LB[game].filter(x=>x!==entries[idx]);
+save();renderAdmLb();renderLb()}
+
+function resetAllVotes(){if(!confirm('This will delete ALL leaderboard entries. Continue?'))return;
+Object.keys(LB).forEach(g=>LB[g]=[]);save();renderAdmLb();renderLb()}
+
+// SONGS ADMIN
+function renderAdmSongs(){
+const el=document.getElementById('admSongsContent');
+el.innerHTML=SG.map((s,i)=>{const vc=s.votes>0?'pos':s.votes<0?'neg':'zero';
+return`<div class="asong-row" style="animation-delay:${i*.03}s">
+<div class="asong-num">${i+1}</div>
+<div class="asong-info"><div class="asong-title">${s.title}</div><div class="asong-meta">${s.genre} · ${s.duration}</div></div>
+<div class="asong-votes ${vc}">${s.votes>0?'+':''}${s.votes}</div>
+<div class="asong-actions">
+<button class="btn" style="font-size:.45rem;padding:.2rem .4rem" onclick="openSongModal('edit',${s.id})">Edit</button>
+<button class="btn dan" style="font-size:.45rem;padding:.2rem .4rem" onclick="delSong(${s.id})">✕</button>
+</div></div>`}).join('')}
+
+function openSongModal(m,id){
+ESI=m==='edit'?id:null;
+document.getElementById('songModalTitle').textContent=m==='edit'?'Edit Song':'Add Song';
+document.getElementById('songModalSave').textContent=m==='edit'?'Save':'Add Song';
+if(m==='edit'){const s=SG.find(x=>x.id===id);document.getElementById('sTitle').value=s.title;document.getElementById('sGenre').value=s.genre;document.getElementById('sDuration').value=s.duration}
+else{['sTitle','sGenre','sDuration'].forEach(x=>document.getElementById(x).value='')}
+document.getElementById('songModal').classList.add('op');document.getElementById('sTitle').focus()}
+function closeSongModal(e){if(e&&e.target!==e.currentTarget)return;document.getElementById('songModal').classList.remove('op');ESI=null}
+function saveSong(){
+const t=document.getElementById('sTitle').value.trim();if(!t)return;
+const g=document.getElementById('sGenre').value.trim()||'Other';
+const d=document.getElementById('sDuration').value.trim()||'0:00';
+if(ESI!==null){const s=SG.find(x=>x.id===ESI);s.title=t;s.genre=g;s.duration=d}
+else{SG.push({id:SG.reduce((m,x)=>Math.max(m,x.id),0)+1,title:t,genre:g,duration:d,votes:0,myVote:0})}
+save();closeSongModal();renderAdmSongs();renderPl()}
+function delSong(id){const s=SG.find(x=>x.id===id);if(!confirm(`Delete "${s.title}"?`))return;
+SG=SG.filter(x=>x.id!==id);MP=MP.filter(x=>x!==id);save();renderAdmSongs();renderPl()}
+function resetSongVotes(){if(!confirm('Reset all song votes to 0?'))return;SG.forEach(s=>{s.votes=0;s.myVote=0});save();renderAdmSongs();renderPl()}
+</script>
+</body>
+</html>
